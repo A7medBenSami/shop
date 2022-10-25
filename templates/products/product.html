@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% block title %}| {{pro.name}} {% endblock %}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="single-product-img">
+                            <img src="{{pro.photo.url}}" alt="">
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="single-product-content">
+                            <h3>{{pro.name}}</h3>
+                            <p class="single-product-pricing"><span>Price</span> ${{pro.price}}</p>
+                            <p>{{pro.description|safe}}</p>
+                            <div class="single-product-form">
+
+                                {% if pro.stock <= 0 %}
+                                    <div class="col-md-7">
+                                    <div class="product-filters" >
+                                    <ul>
+                                    <li  style="color: red; background-color:#ecf0f3;" >Temporarily Out Of Stock.</li>
+                                    </ul>
+                                    </div>
+                                    </div>
+                                {% else %}
+                                <p class="single-product-pricing" style="color: green;"> In Stock. </p>
+                                <form action="{% url 'add_to_cart' %}">
+                                 <input type="number" placeholder="" name="qty" value="1">
+                                 <input type="hidden" placeholder="" name="pro_id" value="{{pro.id}}">
+                                 <input type="hidden" placeholder="" name="price" value="{{pro.price}}">
+                                {% if not request.user.is_authenticated or request.user.is_anonymous%}
+                                                    <div class="cart-buttons">
+                                                        <a href="{% url 'account' %}" class="boxed-btn black">Add to Cart</a>
+                                                    </div>
+                                {% else %}
+                                <div class="cart-buttons"></div>
+                                <button style="border-radius: 40px;" class="boxed-btn black" type="submit"><a class="boxed-btn black">Add to Cart</a></button>
+                                </div>
+                                {% endif %}
+
+                                </form>
+                                {% endif %}
+                                
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

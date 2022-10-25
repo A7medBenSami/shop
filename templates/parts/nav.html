@@ -1,0 +1,85 @@
+{% load static %}
+
+
+    
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        <div class="site-logo">
+                            <a href="/">
+                                <img src="{% static 'assets/img/logo.png' %}" alt="">
+                            </a>
+                        </div>
+                        <!-- logo -->
+    
+                        <!-- menu start -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li 
+                                {% if '/' == request.path %}
+                                class="current-list-item"
+                                {% else %}
+                                class=""
+                                {% endif %}
+                                ><a href="/">Home</a></li>
+                                
+                                <li 
+                                {% if 'products/' in request.path %}
+                                class="current-list-item"
+                                {% else %}
+                                class=""
+                                {% endif %}
+                                ><a href="{% url 'products' %}">All Products</a></li>
+
+                                <li 
+                                {% if 'offers' in request.path %}
+                                class="current-list-item"
+                                {% else %}
+                                class=""
+                                {% endif %}
+                                ><a href="offers/">Offers</a></li>
+
+                                <li 
+                                {% if 'about' in request.path %}
+                                class="current-list-item"
+                                {% else %}
+                                class=""
+                                {% endif %}
+                                ><a href="{% url 'about' %}">About</a></li>
+                                
+                                <li>
+                                    <div class="header-icons">
+                                        {% if request.user.is_authenticated %}
+                                        <a class="shopping-cart">({{user.username}})</a>
+                                        <a style="color: red;" class="shopping-cart" href="{% url 'cart' %}"><i class="fas fa-shopping-cart">{{orderdetails.count}}</i></a>
+                                        <a class="shopping-cart" href="{% url 'logout' %}">Sign Out</a>
+                                        {% else %}
+                                        <a class="shopping-cart" href="{% url 'account' %}">Login</a>
+                                        <a class="shopping-cart" href="{% url 'reg' %}">Register</a>
+                                        {% endif %}
+                                    </div>
+                                    
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobile-menu"></div>
+                        <!-- menu end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                        {% for msg in messages %}
+                        <div class="single-product mt-150 mb-150">
+                            <div class="alert alert-primary" role="alert">
+                                {{msg}}
+                            </div>
+                            {% endfor %}
+    <!-- end header -->
+    
+    
+   

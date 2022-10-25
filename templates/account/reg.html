@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="wrapper">
+    <div class="logo">
+        <img src="https://www.freepnglogos.com/uploads/allah-png/file-allah-logo-svg-wikipedia-2.png" alt="">
+    </div>
+
+
+    {% if request.user.is_authenticated %}
+        <div class="text-center mt-4 name">
+            Registered
+        </div>
+    <form method="post" style="display: none;">
+    {% else %}
+        <div class="text-center mt-4 name">
+            Register
+        </div>
+    <form method="post" class="p-3 mt-3">
+        {% endif %}
+        {% csrf_token %}
+        
+
+
+
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="email" name="email" id="email" placeholder="Email">
+        </div>
+
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="username" id="userName" placeholder="Username">
+        </div>
+
+
+
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="password" id="pwd" placeholder="Password">
+        </div>
+
+        <button class="btn mt-3">Register</button>
+        <div class="text-center fs-6">
+            <a href="{% url 'account' %}">Login</a>
+        </div>
+    </form>
+
+</div>
+
+
+
+{% endblock %}

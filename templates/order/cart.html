@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | Cart{% endblock %}
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+       
+
+
+<!-- cart -->
+<div class="cart-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">  
+            
+                {% if not request.user.is_authenticated or request.user.is_anonymous%}
+                <a href="{% url 'account' %}">
+                    <h1 style="color: red;">Login First</h1></a>
+                    {% elif order %}
+                    
+            <div class="col-lg-8 col-md-12">
+
+                <div class="cart-table-wrap" >
+                    <table class="cart-table"  >
+                        <thead class="cart-table-head" >
+                            <tr class="table-head-row"style="background-color:#2986cc ;">
+                                <th class="product-remove">Remove</th>
+                                <th class="product-image">Product</th>
+                                <th class="product-name">Product Name</th>
+                                <th class="product-name">Quantity</th>
+                                <th class="product-price">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for line in orderdetails %}
+                            <tr class="table-body-row">
+                                
+                                <td class="product-remove" style="font-size:25px ;"><a href="{% url 'remove_from_cart' orderdetails_id=line.id %}"><i class="far fa-window-close"></i></a></td>
+                                <td class="product-image" ><a href="{% url 'product' pro_id=line.product.id %}"><img src="{{line.product.photo.url}}" alt="" ></a></td>
+                                <td class="product-name">{{line.product.name}}</td>
+                                <td class="product-price"><a href="{% url 'sub_qty' orderdetails_id=line.id %}" class="btn btn-outline-info btn-sm">-</a>  ( {{line.quantity}} ) <a href="{% url 'add_qty' orderdetails_id=line.id %}" class="btn btn-outline-info btn-sm">+</a></td>
+                                <td class="product-price">{{line.qtyprice}} <span style="color: #2986cc;">EGP</span></td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="order-details-wrap">
+                    <table class="total-table">
+                        <thead class="total-table-head">
+                            <tr class="table-total-row" style="background-color:#2986cc ;">
+                                <th>Your order Details</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr class="total-data">
+                                
+                                <td><strong>Subtotal: </strong></td>
+                                {% for line in orderdetails %}
+                                <td>{{line.qtyprice}} <span style="color: #2986cc;">EGP</span> </td>
+                            </tr>
+                            {% endfor %}
+                            <tr class="total-data">
+                                <td><strong>Total: </strong></td>
+                                {% for line in orderdetails %}
+                                <td>0<span style="color: #2986cc;">EGP</span></td>
+                                {% endfor %}
+                            </tr>
+                            
+                        </tbody>
+                                    
+
+                    </table>
+                    <div class="cart-buttons">
+                        <a href="{% url 'checkout' %}" class="boxed-btn black">Check Out</a>
+                    </div>
+                </div>
+
+
+            </div>
+    {% endif %}
+
+        </div>
+        
+    </div>
+</div>
+
+<!-- end cart -->
+            
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,9 @@
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'shopdb',
+        'USER': 'postgres',
+        'PASSWORD': '1312',
+        'HOST': 'localhost',
+        'PORT': '5432',
+
+	pip install psycopg2
+	pip install psycopg2-binary
